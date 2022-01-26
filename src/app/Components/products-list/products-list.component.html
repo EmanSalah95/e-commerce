@@ -2,7 +2,7 @@
   <a
     type="button"
     class="btn btn-dark small"
-    routerLink="/AddProduct"
+    [routerLink]="['/ProductForm', 0]"
     >add product</a
   >
 </div>
@@ -11,14 +11,14 @@
   <div
     *ngFor="let product of productsList"
     class="col-3"
-    [routerLink]="['/Products', product.id]"
+    [routerLink]="['/ProductDetails', product.id]"
   >
     <div roundShadow="#dfe3e8" class="card text-start m-1">
       <button
         mat-mini-fab
         aria-label="edit product"
         class="position-absolute m-1 end-0"
-        [routerLink]="['/EditProduct', product.id]"
+        [routerLink]="['/ProductForm', product.id]"
       >
         <mat-icon>edit</mat-icon>
       </button>

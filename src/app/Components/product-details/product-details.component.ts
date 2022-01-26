@@ -28,7 +28,7 @@ export class ProductDetailsComponent implements OnInit {
     let prodIndex=this.allProductsIds.findIndex( id=>id===this.productId);
     if(prodIndex>0){
       let destinationId=this.allProductsIds[prodIndex-1];
-      this.router.navigate(['./Products',destinationId]);
+      this.router.navigate(['./ProductDetails',destinationId]);
     }
   }
 
@@ -38,7 +38,7 @@ export class ProductDetailsComponent implements OnInit {
 
     if(prodIndex<this.allProductsIds.length-1){
       let destinationId=this.allProductsIds[prodIndex+1];
-      this.router.navigate(['./Products',destinationId]);
+      this.router.navigate(['./ProductDetails',destinationId]);
     }
   }
 

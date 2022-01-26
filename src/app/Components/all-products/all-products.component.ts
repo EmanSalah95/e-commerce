@@ -24,13 +24,15 @@ export class AllProductsComponent implements OnInit, OnChanges {
   @Input() productsStr: number = 1;
   @Input() recievedCateg: number = 0;
   @Input() recievedMaxPrice: number = 0;
+  @Input() cartProducts:IcartProduct[]=[];
   @Output() appendCart: EventEmitter<IcartProduct>;
-  
+
   constructor(private localProductsService: ProductsLocalService) {
     this.productsList = localProductsService.getProducts();
     this.appendCart = new EventEmitter<IcartProduct>();
   }
   ngOnChanges(): void {
+
     this.filteredProducts =
       this.localProductsService.getProductsByCategAndPrice(
         this.recievedCateg,
@@ -62,6 +64,11 @@ export class AllProductsComponent implements OnInit, OnChanges {
     });
   }
 
+  checkIsAdded(pid:number):boolean{
+    let found=this.cartProducts.find(i=>i.id===pid);
+    return found?true:false;
+  }
+
   checkQuantity(addedQuant: number, prodQuantity: number): boolean {
     let isAvailable = addedQuant <= prodQuantity ? true : false;
     !isAvailable && alert('this quantity more than stock quantity');
@@ -78,7 +85,7 @@ export class AllProductsComponent implements OnInit, OnChanges {
         price,
         name,
         image,
-        count: addedQuantity,
+        count: addedQuantity?addedQuantity:1,
       };
       this.appendCart.emit(addedProduct);
     }
