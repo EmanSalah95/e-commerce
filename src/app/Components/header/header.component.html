@@ -10,8 +10,10 @@
       <div class="navbar-nav">
         <a class="nav-link" routerLink="Home" routerLinkActive="active">Home</a>
         <a class="nav-link" routerLink="Products" routerLinkActive="active">Products</a>
+        <a class="nav-link" routerLink="Order" routerLinkActive="active">Order</a>
         <a class="nav-link" routerLink="About" routerLinkActive="active">About</a>
-        <a class="nav-link" routerLink="Login" routerLinkActive="active">Login</a>
+        <a class="nav-link" [hidden]='isLogged' routerLink="Login" routerLinkActive="active" >Login</a>
+        <a class="nav-link" [hidden]='!isLogged' (click)="handleLogOut()">hello: {{userName}} </a>
       </div>
     </div>
   </div>

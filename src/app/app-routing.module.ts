@@ -9,12 +9,15 @@ import { NotFoundComponent } from './Components/not-found/not-found.component';
 import { ProductDetailsComponent } from './Components/product-details/product-details.component';
 import { ProductsListComponent } from './Components/products-list/products-list.component';
 import { ProductsComponent } from './Components/products/products.component';
+import { HomeComponent } from './Components/home/home.component';
+
 
 const routes: Routes = [
   {path:'',component:MainContainerComponent, children:[
-    {path: '', redirectTo: '/Home', pathMatch: 'full'},
-    {path:'Home',component:ProductsComponent},
+    {path: '', redirectTo: '/Products', pathMatch: 'full'},
+    {path:'Order',component:ProductsComponent},
     {path:'About',component:AboutComponent},
+    {path:'Home',component:HomeComponent},
     {path:'Products',component:ProductsListComponent},
     {path:'ProductDetails/:id',component:ProductDetailsComponent},
     {path:'ProductForm/:id',component:EditProductsComponent},
@@ -28,6 +31,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+exports: [RouterModule]
 })
 export class AppRoutingModule { }

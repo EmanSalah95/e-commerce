@@ -9,12 +9,11 @@ export class PormotionsServiceService {
     'best offer ever',
     'offer of the year',
     'buy one get one',
-    '',
-    'last pormotion',
+    'buy two get one free',
   ];
   constructor() {}
 
-  getPormotionsIntervals(intervalSeconds: number):Observable<string> {
+  getPormotionsIntervals(intervalSeconds: number): Observable<string> {
     return new Observable<string>((observer) => {
       let counter = 0;
       let pormotionInterval = setInterval(() => {
@@ -24,19 +23,13 @@ export class PormotionsServiceService {
 
         observer.next(this.pormotionsList[counter]);
         counter++;
-        console.log("test interval");
-
-
       }, intervalSeconds * 1000);
 
-      return{
-        unsubscribe(){
+      return {
+        unsubscribe() {
           clearInterval(pormotionInterval);
-          alert("pormotions ended");
-        }
-      }
+        },
+      };
     });
-
-
   }
 }

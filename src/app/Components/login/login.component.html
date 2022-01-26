@@ -1,1 +1,31 @@
-<p>login works!</p>
+<div class="container col-8 mt-3">
+  <form name="productForm">
+    <div class="mb-3">
+      <label for="nameInput" class="form-label">user name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="nameInput"
+        name="name"
+        aria-describedby="nameHelp"
+        #userNameRef
+      />
+    </div>
+    <div class="mb-3">
+      <label for="priceInput" class="form-label">Password</label>
+      <input
+        type="password"
+        class="form-control"
+        name="password"
+        id="priceInput"
+        #passwordRef
+      />
+    </div>
+
+
+    <button type="submit" class="btn btn-dark"
+    (click)="loginHandler(userNameRef.value,passwordRef.value)">
+      Login
+    </button>
+  </form>
+</div>
