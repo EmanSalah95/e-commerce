@@ -1,0 +1,80 @@
+<ng-container [ngSwitch]="productsStr">
+  <div class="my-3 d-flex flex-wrap" *ngSwitchCase="1" >
+    <a *ngFor="let product of filteredProducts" class="col-3" >
+      <div roundShadow="#dfe3e8" class="card text-start m-1">
+        <img class="card-img-top" [src]="product.image" alt="" height="200px" />
+        <div class="card-body">
+          <h5 class="card-title">
+            {{ product.name }}
+            <ng-container [ngSwitch]="product.categoryId">
+              <span class="badge bg-secondary" *ngSwitchCase="1">mobile</span>
+              <span class="badge bg-secondary" *ngSwitchCase="2">ipad</span>
+              <span class="badge bg-secondary" *ngSwitchDefault>tv</span>
+            </ng-container>
+          </h5>
+          <p class="card-text">{{ product.price |  currency :'EGP':'code'}}</p>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <table *ngSwitchCase="2" class="table my-5">
+    <thead>
+      <tr>
+        <th scope="col">image</th>
+        <th scope="col">id</th>
+        <th scope="col">name</th>
+        <th scope="col">price</th>
+        <th scope="col">quantity</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let product of filteredProducts"
+        [hidden]="product.quantity == 0"
+        [style.background]="product.quantity == 1 ? '#ffc107' : '#e9ecef'"
+      >
+        <td>
+          <img
+            [src]="product.image"
+            width="50px"
+            height="50px"
+            class="mx-3 rounded-3"
+            alt="logo"
+          />
+        </td>
+        <td scope="row">{{ product.id }}</td>
+        <td>
+          {{ product.name }}
+          <ng-container [ngSwitch]="product.categoryId">
+            <span class="badge bg-secondary" *ngSwitchCase="1">mobile</span>
+            <span class="badge bg-secondary" *ngSwitchCase="2">ipad</span>
+            <span class="badge bg-secondary" *ngSwitchDefault>tv</span>
+          </ng-container>
+        </td>
+
+        <td>{{ product.price |  currency :'EGP':'code' }}</td>
+        <td>{{ product.quantity }}</td>
+        <td>
+          <input
+            type="number"
+            class="form-control"
+            aria-describedby="quantity"
+            placeholder="enter quantity"
+            #addedQuantity
+            (blur)="checkQuantity(+addedQuantity.value,product.quantity)"
+          />
+        </td>
+        <td>
+          <button
+            type="button"
+            class="btn btn-dark"
+            (click)="addToCart(product,+addedQuantity.value)"
+          >
+            Add to cart
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ng-container>

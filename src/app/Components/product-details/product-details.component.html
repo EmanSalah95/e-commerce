@@ -1,0 +1,22 @@
+<div class=" d-flex " >
+  <a class="col-4" >
+    <div roundShadow="#dfe3e8" class="card text-start m-1">
+      <img class="card-img-top" [src]="product?.image" alt="" height="200px" />
+      <div class="card-body">
+        <h5 class="card-title">
+          {{ product?.name }}
+          <ng-container [ngSwitch]="product?.categoryId">
+            <span class="badge bg-secondary" *ngSwitchCase="1">mobile</span>
+            <span class="badge bg-secondary" *ngSwitchCase="2">ipad</span>
+            <span class="badge bg-secondary" *ngSwitchDefault>tv</span>
+          </ng-container>
+        </h5>
+        <p class="card-text">{{ product?.price |  currency :'EGP':'code'}}</p>
+      </div>
+    </div>
+  </a>
+</div>
+<div class="btn-group" role="group" aria-label="Basic example">
+  <button type="button"  class="btn btn-dark " [disabled]="productId==allProductsIds[0]" (click)="getPrevProduct()">prev</button>
+  <button type="button " [disabled]="productId==allProductsIds[allProductsIds.length-1]" class="btn btn-dark" (click)="getNextProduct()">next</button>
+</div>

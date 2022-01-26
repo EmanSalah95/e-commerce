@@ -1,0 +1,74 @@
+<div class="container col-8 mt-3">
+  <form name="productForm">
+    <div class="mb-3">
+      <label for="nameInput" class="form-label">name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="nameInput"
+        name="name"
+        aria-describedby="nameHelp"
+        [value]="product?.name"
+        #nameRef
+      />
+    </div>
+    <div class="mb-3">
+      <label for="priceInput" class="form-label">price</label>
+      <input
+        type="number"
+        class="form-control"
+        name="price"
+        [value]="product?.price"
+        id="priceInput"
+        #priceRef
+      />
+    </div>
+    <div class="mb-3">
+      <label for="quantityInpur" class="form-label">quantity</label>
+      <input
+        type="number"
+        class="form-control"
+        name="quantity"
+        [value]="product?.quantity"
+        id="quantityInpur"
+        #QuantityRef
+      />
+    </div>
+    <div class="mb-3">
+      <label for="categInput" class="form-label">category</label>
+      <select
+        class="form-control"
+        name="category"
+        id="categInput"
+        [value]="product?.categoryId"
+        #categoryRef
+      >
+        <option value="1">mobile</option>
+        <option value="2">ipad</option>
+        <option value="3">tv</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="imageInput" class="form-label">image url</label>
+      <input
+        type="text"
+        class="form-control"
+        name="image"
+        id="imageInput"
+        [value]="product?.image"
+        #imageRef
+      />
+    </div>
+
+    <button type="submit" class="btn btn-dark"
+    (click)="onSubmit(
+      nameRef.value,
+      priceRef.value,
+      QuantityRef.value,
+      categoryRef.value,
+      imageRef.value
+      )">
+      Submit
+    </button>
+  </form>
+</div>

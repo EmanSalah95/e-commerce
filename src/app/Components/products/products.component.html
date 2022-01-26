@@ -1,0 +1,221 @@
+<div class="d-flex my-3">
+  <img
+    [src]="storeObj.logo"
+    width="50px"
+    height="50px"
+    class="mx-3 rounded-3"
+    alt="logo"
+  />
+
+  <h1>{{ storeObj.name }}</h1>
+</div>
+<h3 *ngIf="discount !== 'No Discount'">
+  We offer an explicit discount of: {{ discount }}
+  <!-- <p>The hero's birthday is {{ birthday | date }}</p> -->
+</h3>
+
+<hr />
+
+<mat-card>
+  <mat-radio-group aria-label="Select an option">
+    <mat-radio-button (click)="setDisplay(1)" value="1">Cards</mat-radio-button>
+    <mat-radio-button (click)="setDisplay(2)" class="ms-5" value="2"
+      >Table</mat-radio-button
+    >
+  </mat-radio-group>
+</mat-card>
+
+<div class="dropdown my-3">
+  <button
+    class="btn btn-secondary dropdown-toggle"
+    type="button"
+    id="dropdownMenuButton1"
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
+  >
+    Categories
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+    <li>
+      <a class="dropdown-item" (click)="getCategory(0)">all</a>
+    </li>
+    <li *ngFor="let cat of categoryList">
+      <a
+        id="{{ cat.id }}"
+        class="dropdown-item"
+        (click)="getCategory(cat.id)"
+        >{{ cat.name }}</a
+      >
+    </li>
+  </ul>
+</div>
+
+<div class="mb-3 col-3">
+  <input
+    type="search"
+    class="form-control"
+    type="number"
+    placeholder="filter by max price"
+    #maxInput
+  />
+</div>
+
+<button
+  type="button"
+  class="btn btn-dark"
+  (click)="setMaxPrice(+maxInput.value)"
+>
+  filter
+</button>
+
+
+<!-- <div class="mb-3 col-3">
+  <label for="" class="form-label"></label>
+  <select class="form-control" name="" id="" [(ngModel)]="categoryId">
+    <option  selected value="0">all</option>
+    <option *ngFor="let cat of categoryList" value="{{ cat.id }}">
+      {{ cat.name }}
+    </option>
+  </select>
+</div> -->
+<all-products
+  [recievedCateg]="categoryId"
+  [productsStr]="productsView"
+  [recievedMaxPrice]="+maxPrice"
+  (appendCart)="onAppend($event)"
+></all-products>
+
+<table class="table my-5" [hidden]="addedProducts.length == 0">
+  <thead>
+    <tr>
+      <th scope="col">serial</th>
+      <th scope="col">image</th>
+      <th scope="col">name</th>
+      <th scope="col">price</th>
+      <th scope="col">count</th>
+      <th scope="col">totalPrice</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let product of addedProducts; let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>
+        <img
+          [src]="product.image"
+          width="50px"
+          height="50px"
+          class="mx-3 rounded-3"
+          alt="logo"
+        />
+      </td>
+      <td>
+        {{ product.name }}
+      </td>
+
+      <td>{{ product.price | currency: "EGP":"code" }}</td>
+      <td>
+        <input
+          type="number"
+          class="form-control"
+          aria-describedby="quantity"
+          placeholder="enter quantity"
+          value="{{ product.count }}"
+          #editedQuantity
+          (blur)="editProductTotalPrice(editedQuantity.value, product.id)"
+        />
+      </td>
+      <!--[(ngModel)]='product.count'-->
+      <td>{{ product.count * product.price | currency: "EGP":"code" }}</td>
+
+      <td>
+        <button
+          type="button"
+          class="btn btn-dark"
+          (click)="removeFromCart(product.id)"
+        >
+          <!-- (click)="addToCart(product,+addedQuantity.value)" -->
+          remove
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!--  *ngIf="!orderCompleted" -->
+
+<h4 *ngIf="orderCompleted && addedProducts.length == 0" class="my-5">
+  Thanks for purchasing from our Store, {{ clientName }}
+</h4>
+
+<button
+  type="button"
+  class="btn btn-dark"
+  (click)="finishOrder()"
+  [hidden]="addedProducts.length == 0"
+>
+  {{ "complete order" }}
+</button>
+
+<mat-card class="my-3">
+  <mat-card-title>Shopping cart </mat-card-title>
+  <mat-card-content>
+    <p>purshase Date: {{ purshDate | date: "mediumDate" }}</p>
+    <p>total price: {{ orderTotal | currency: "EGP":"code" }}</p>
+  </mat-card-content>
+</mat-card>
+
+<mat-card class="my-3">
+  <mat-card-title>National id </mat-card-title>
+  <div class="col-3">
+    <label for="select format" class="form-label"></label>
+    <select class="form-control" #format>
+      <option selected value="0">YY</option>
+      <option value="1">MM</option>
+      <option value="2">DD</option>
+      <option value="3">FullDate</option>
+    </select>
+  </div>
+  <mat-card-content>
+    <div class="mb-3 col-3">
+      <label for="" class="form-label"></label>
+      <input
+        #nId
+        type="number"
+        class="form-control"
+        value="29909011509345"
+        placeholder="ID"
+        (submit)="test($event)"
+      />
+      <button
+        type="button"
+        class="btn btn-secondary my-2"
+        (click)="setNID(nId.value)"
+      >
+        submit
+      </button>
+    </div>
+    <p>date of birth: {{ nationalId | birthDate: format.value }}</p>
+
+    <mat-card-title class="mt-5">credit card </mat-card-title>
+
+    <div class="mb-3 col-3">
+      <label for="" class="form-label"></label>
+      <input
+        #credit
+        type="number"
+        class="form-control"
+        pattern="[0-9]{12}"
+        value="000000000000"
+        placeholder="credit"
+      />
+      <button
+        type="button"
+        class="btn btn-secondary my-2"
+        (click)="setCredit(credit.value)"
+      >
+        submit credit
+      </button>
+      <p>credit: {{ creditNum | credit }}</p>
+    </div>
+  </mat-card-content>
+</mat-card>
