@@ -17,6 +17,8 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
+import {MatDialogModule} from '@angular/material/dialog';
+
 
 import { FormsModule } from '@angular/forms';
 import { RoundShadowDirective } from './Directivs/round-shadow.directive';
@@ -66,7 +68,8 @@ import { EditProductsComponent } from './Components/AdminComponents/edit-product
     MatRadioModule,
     MatSelectModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatDialogModule
 
   ],
   providers: [],

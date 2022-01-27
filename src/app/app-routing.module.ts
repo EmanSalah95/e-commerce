@@ -10,12 +10,13 @@ import { ProductDetailsComponent } from './Components/product-details/product-de
 import { ProductsListComponent } from './Components/products-list/products-list.component';
 import { ProductsComponent } from './Components/products/products.component';
 import { HomeComponent } from './Components/home/home.component';
+import { AuthenticationGuard } from './Guards/authentication.guard';
 
 
 const routes: Routes = [
   {path:'',component:MainContainerComponent, children:[
     {path: '', redirectTo: '/Products', pathMatch: 'full'},
-    {path:'Order',component:ProductsComponent},
+    {path:'Order',component:ProductsComponent ,canActivate:[AuthenticationGuard]},
     {path:'About',component:AboutComponent},
     {path:'Home',component:HomeComponent},
     {path:'Products',component:ProductsListComponent},

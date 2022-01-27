@@ -38,5 +38,7 @@ export class EditProductsComponent implements OnInit {
     this.location.back();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.location);
+  }
 }
