@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { AuthServiceService } from 'src/app/Services/auth-service.service';
+import { DialogComponent } from '../MaterialComponents/dialog/dialog.component';
 
 @Component({
   selector: 'app-header',
@@ -10,7 +12,7 @@ export class HeaderComponent implements OnInit {
   isLogged: boolean;
   userName: string | null = '';
 
-  constructor(private auth: AuthServiceService) {
+  constructor(private auth: AuthServiceService, private dialog: MatDialog) {
     this.isLogged = this.auth.checkToken();
   }
 
@@ -24,6 +26,9 @@ export class HeaderComponent implements OnInit {
   }
 
   handleLogOut() {
-    this.auth.logout();
+    let dialogRef = this.dialog.open(DialogComponent);
+    dialogRef
+      .afterClosed()
+      .subscribe((logOut) => logOut === 'true' && this.auth.logout());
   }
 }

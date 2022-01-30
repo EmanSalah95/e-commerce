@@ -34,6 +34,9 @@ import { AboutComponent } from './Components/about/about.component';
 import { ProductsListComponent } from './Components/products-list/products-list.component';
 import { AddProductComponent } from './Components/AdminComponents/add-product/add-product.component';
 import { EditProductsComponent } from './Components/AdminComponents/edit-products/edit-products.component';
+import { DialogComponent } from './Components/MaterialComponents/dialog/dialog.component';
+import {MatMenuModule} from '@angular/material/menu';
+
 
 @NgModule({
   declarations: [
@@ -55,6 +58,8 @@ import { EditProductsComponent } from './Components/AdminComponents/edit-product
     ProductsListComponent,
     AddProductComponent,
     EditProductsComponent,
+    DialogComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -69,9 +74,9 @@ import { EditProductsComponent } from './Components/AdminComponents/edit-product
     MatSelectModule,
     MatButtonModule,
     MatIconModule,
-    MatDialogModule
-
-  ],
+    MatDialogModule,
+    MatMenuModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
