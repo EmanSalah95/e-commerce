@@ -22,6 +22,7 @@ const routes: Routes = [
     {path:'Products',component:ProductsListComponent},
     {path:'ProductDetails/:id',component:ProductDetailsComponent},
     {path:'ProductForm/:id',component:EditProductsComponent},
+    {path:'ProductForm',component:EditProductsComponent},
     {path:'AddProduct/:id',component:AddProductComponent},
   ]},
   {path:'Login',component:LoginComponent},

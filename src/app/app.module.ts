@@ -36,6 +36,9 @@ import { AddProductComponent } from './Components/AdminComponents/add-product/ad
 import { EditProductsComponent } from './Components/AdminComponents/edit-products/edit-products.component';
 import { DialogComponent } from './Components/MaterialComponents/dialog/dialog.component';
 import {MatMenuModule} from '@angular/material/menu';
+import { HttpClientModule } from '@angular/common/http';
+import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+
 
 
 @NgModule({
@@ -69,13 +72,15 @@ import {MatMenuModule} from '@angular/material/menu';
     MatCardModule,
     MatInputModule,
     FormsModule,
+    HttpClientModule,
     MatBadgeModule,
     MatRadioModule,
     MatSelectModule,
     MatButtonModule,
     MatIconModule,
     MatDialogModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSnackBar
     ],
   providers: [],
   bootstrap: [AppComponent]

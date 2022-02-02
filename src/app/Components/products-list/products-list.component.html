@@ -9,7 +9,7 @@
   <a
     type="button"
     class="btn btn-dark small"
-    [routerLink]="['/ProductForm', 0]"
+    [routerLink]="['/ProductForm']"
     >add product</a
   >
 </div>
@@ -28,6 +28,14 @@
         [routerLink]="['/ProductForm', product.id]"
       >
         <mat-icon>edit</mat-icon>
+      </button>
+      <button
+        mat-mini-fab
+        aria-label="edit product"
+        class="position-absolute mx-1 my-5 end-0"
+        (click)="removeProduct(product.id,$event)"
+      >
+        <mat-icon>delete</mat-icon>
       </button>
       <img class="card-img-top" [src]="product.image" alt="" height="200px" />
       <div class="card-body">

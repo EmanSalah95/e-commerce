@@ -4,6 +4,10 @@ import { IProduct } from './../../ViewModels/iproduct';
 import { Router } from '@angular/router';
 import { PormotionsServiceService } from 'src/app/Services/pormotions-service.service';
 import { Subscription } from 'rxjs';
+import { ProductsBackService } from 'src/app/Services/products-back.service';
+import { DialogComponent } from '../MaterialComponents/dialog/dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+
 
 @Component({
   selector: 'app-products-list',
@@ -11,18 +15,35 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./products-list.component.sass'],
 })
 export class ProductsListComponent implements OnInit, OnDestroy {
-  productsList: IProduct[];
+  productsList: IProduct[]=[];
   pormotion: string = '';
   private subscription!: Subscription;
   constructor(
     private localProductsService: ProductsLocalService,
+    private productsBack:ProductsBackService,
     private router: Router,
-    private pormotions: PormotionsServiceService
+    private pormotions: PormotionsServiceService,
+    private dialog: MatDialog
   ) {
-    this.productsList = localProductsService.getProducts();
+    // this.productsList = localProductsService.getProducts();
+    this.productsBack.getProducts().subscribe(data=>{this.productsList =data})
+  }
+
+  removeProduct(id:number,event:any){
+    let dialogRef = this.dialog.open(DialogComponent , {data:{body:'are you sure you want to delete'}});
+    event.stopPropagation();
+    dialogRef
+      .afterClosed()
+      .subscribe((isConfirmed) => {
+      if (isConfirmed === 'true') {
+       this.productsBack.deleteProduct(id).subscribe(data=>console.log(data));
+       this.productsList= this.productsList.filter(i=>i.id!==id);
+      }}
+      );
   }
 
   ngOnInit(): void {
+    this.productsBack.getProducts().subscribe(data=>{this.productsList =data})
     let observerObj = {
       next: (data: string) => {
         this.pormotion = data;

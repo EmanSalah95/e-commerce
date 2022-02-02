@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { ProductsLocalService } from 'src/app/Services/products-local.service';
 import { IProduct } from 'src/app/ViewModels/iproduct';
 import { ActivatedRoute } from '@angular/router';
+import { ProductsBackService } from 'src/app/Services/products-back.service';
+// import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-edit-products',
@@ -10,31 +12,29 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./edit-products.component.sass'],
 })
 export class EditProductsComponent implements OnInit {
-  product: IProduct | undefined;
+  product: IProduct ={}as IProduct;
+  productId:number=0;
   constructor(
     private productsService: ProductsLocalService,
+    private productsBack:ProductsBackService,
     private location: Location,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    // private snachBar:MatSnackBar
   ) {
     activatedRoute.paramMap.subscribe((parmMap) => {
-      let productId = Number(parmMap.get('id'));
-      this.product = productsService.getProductById(productId);
+      this.productId = Number(parmMap.get('id'));
+      // this.product = productsService.getProductById(productId);
+      this.productId&& this.productsBack.getProductById(this.productId).subscribe(data=>{
+        this.product =data;
+      })
+
     });
   }
 
-  onSubmit(...args: string[]) {
-    let newProduct = {
-      name: args[0],
-      price: +args[1],
-      quantity: +args[2],
-      categoryId: +args[3],
-      image: args[4],
-      id: this.product ? this.product.id : Math.floor(Math.random() * 100),
-    };
-
-    this.product
-      ? this.productsService.editProduct(newProduct)
-      : this.productsService.addProduct(newProduct);
+  onSubmit(){
+    this.productId
+      ? this.productsBack.editProduct(this.product).subscribe(data=>console.log(data))
+      : this.productsBack.addProduct(this.product).subscribe(data=>console.log(data));
     this.location.back();
   }
 

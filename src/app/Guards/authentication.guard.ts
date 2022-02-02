@@ -13,6 +13,7 @@ export class AuthenticationGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean | UrlTree> | boolean | UrlTree {
+      console.log(route.url[0].path);
       if (this.auth.checkToken()) {
         return true;
       } else {
