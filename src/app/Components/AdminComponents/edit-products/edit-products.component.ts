@@ -4,7 +4,6 @@ import { ProductsLocalService } from 'src/app/Services/products-local.service';
 import { IProduct } from 'src/app/ViewModels/iproduct';
 import { ActivatedRoute } from '@angular/router';
 import { ProductsBackService } from 'src/app/Services/products-back.service';
-// import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-edit-products',
@@ -19,7 +18,6 @@ export class EditProductsComponent implements OnInit {
     private productsBack:ProductsBackService,
     private location: Location,
     private activatedRoute: ActivatedRoute,
-    // private snachBar:MatSnackBar
   ) {
     activatedRoute.paramMap.subscribe((parmMap) => {
       this.productId = Number(parmMap.get('id'));

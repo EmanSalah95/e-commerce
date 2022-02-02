@@ -37,7 +37,7 @@ import { EditProductsComponent } from './Components/AdminComponents/edit-product
 import { DialogComponent } from './Components/MaterialComponents/dialog/dialog.component';
 import {MatMenuModule} from '@angular/material/menu';
 import { HttpClientModule } from '@angular/common/http';
-import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import { DeleteDialogComponent } from './Components/MaterialComponents/delete-dialog/delete-dialog.component';
 
 
 
@@ -62,6 +62,7 @@ import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
     AddProductComponent,
     EditProductsComponent,
     DialogComponent,
+    DeleteDialogComponent,
 
   ],
   imports: [
@@ -80,7 +81,6 @@ import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
     MatIconModule,
     MatDialogModule,
     MatMenuModule,
-    MatSnackBar
     ],
   providers: [],
   bootstrap: [AppComponent]

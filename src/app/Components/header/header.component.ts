@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthServiceService } from 'src/app/Services/auth-service.service';
 import { DialogComponent } from '../MaterialComponents/dialog/dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +13,7 @@ export class HeaderComponent implements OnInit {
   isLogged: boolean;
   userName: string | null = '';
 
-  constructor(private auth: AuthServiceService, private dialog: MatDialog) {
+  constructor(private auth: AuthServiceService, private dialog: MatDialog , private router :Router) {
     this.isLogged = this.auth.checkToken();
   }
 
@@ -29,6 +30,11 @@ export class HeaderComponent implements OnInit {
     let dialogRef = this.dialog.open(DialogComponent);
     dialogRef
       .afterClosed()
-      .subscribe((logOut) => logOut === 'true' && this.auth.logout());
+      .subscribe((logOut) =>{
+        if(logOut === 'true'){
+          this.auth.logout();
+          this.router.url=='/Order'&& this.router.navigate(['Products']);
+        }
+      });
   }
 }

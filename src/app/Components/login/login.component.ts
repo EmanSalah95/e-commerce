@@ -21,6 +21,6 @@ export class LoginComponent implements OnInit {
     // this.loginAuth.checkToken() && this.location.back();
     console.log("location",location);
 
-    // this.loginAuth.checkToken() && this.router.navigate(['Products']);
+    this.loginAuth.checkToken() && this.router.navigate(['Order']);
   }
 }

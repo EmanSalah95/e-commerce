@@ -5,8 +5,8 @@ import { Router } from '@angular/router';
 import { PormotionsServiceService } from 'src/app/Services/pormotions-service.service';
 import { Subscription } from 'rxjs';
 import { ProductsBackService } from 'src/app/Services/products-back.service';
-import { DialogComponent } from '../MaterialComponents/dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { DeleteDialogComponent } from './../MaterialComponents/delete-dialog/delete-dialog.component';
 
 
 @Component({
@@ -30,7 +30,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   }
 
   removeProduct(id:number,event:any){
-    let dialogRef = this.dialog.open(DialogComponent , {data:{body:'are you sure you want to delete'}});
+    let dialogRef = this.dialog.open(DeleteDialogComponent);
     event.stopPropagation();
     dialogRef
       .afterClosed()
