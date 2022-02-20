@@ -1,1 +1,60 @@
-<p>login works!</p>
+<div class="container col-8 mt-3">
+  <form name="loginForm" #loginForm="ngForm">
+    <div class="mb-3">
+      <label for="nameInput" class="form-label">user name</label>
+
+      <input
+        type="text"
+        class="form-control"
+        id="nameInput"
+        name="name"
+        required
+        pattern="[A-Za-z\s?]{3,15}"
+        [(ngModel)]="name"
+        #userNameRef="ngModel"
+      />
+
+      <div
+        *ngIf="userNameRef.errors && !userNameRef?.untouched"
+        class="alert alert-danger mt-2"
+      >
+        <div *ngIf="userNameRef?.errors?.['required']">Name is required.</div>
+        <div *ngIf="userNameRef?.errors?.['pattern']">
+          Name must be more than 2 characters.
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="passwordInput" class="form-label">Password</label>
+
+      <input
+        type="password"
+        class="form-control"
+        name="password"
+        id="passwordInput"
+        required
+        [(ngModel)]="password"
+        #passwordRef="ngModel"
+      />
+
+      <div
+        *ngIf="passwordRef.errors?.['required'] && !passwordRef?.untouched"
+        class="alert alert-danger mt-2"
+      >
+        <div *ngIf="passwordRef?.errors?.['required']">
+          Password is required.
+        </div>
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      class="btn btn-dark"
+      [disabled]="loginForm.invalid"
+      (click)="loginHandler(userNameRef.value, passwordRef.value)"
+    >
+      Login
+    </button>
+  </form>
+</div>

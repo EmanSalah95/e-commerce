@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './Components/header/header.component';
 import { FooterComponent } from './Components/footer/footer.component';
-import { ProductsComponent } from './Components/products/products.component';
+import { OrdersComponent } from './Components/orders/orders.component';
 import { SideMenuComponent } from './Components/side-menu/side-menu.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -17,8 +17,10 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
+import {MatDialogModule} from '@angular/material/dialog';
 
-import { FormsModule } from '@angular/forms';
+
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { RoundShadowDirective } from './Directivs/round-shadow.directive';
 import { BirthDatePipe } from './Pipes/birth-date.pipe';
 import { CreditPipe } from './Pipes/credit.pipe';
@@ -28,17 +30,22 @@ import { LoginComponent } from './Components/login/login.component';
 import { ProductDetailsComponent } from './Components/product-details/product-details.component';
 import { NotFoundComponent } from './Components/not-found/not-found.component';
 import { MainContainerComponent } from './Components/main-container/main-container.component';
-import { AboutComponent } from './Components/about/about.component';
 import { ProductsListComponent } from './Components/products-list/products-list.component';
-import { AddProductComponent } from './Components/AdminComponents/add-product/add-product.component';
 import { EditProductsComponent } from './Components/AdminComponents/edit-products/edit-products.component';
+import { DialogComponent } from './Components/MaterialComponents/dialog/dialog.component';
+import {MatMenuModule} from '@angular/material/menu';
+import { HttpClientModule } from '@angular/common/http';
+import { DeleteDialogComponent } from './Components/MaterialComponents/delete-dialog/delete-dialog.component';
+import { SignUpComponent } from './Components/sign-up/sign-up.component';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    ProductsComponent,
+    OrdersComponent,
     SideMenuComponent,
     RoundShadowDirective,
     BirthDatePipe,
@@ -49,10 +56,12 @@ import { EditProductsComponent } from './Components/AdminComponents/edit-product
     ProductDetailsComponent,
     NotFoundComponent,
     MainContainerComponent,
-    AboutComponent,
     ProductsListComponent,
-    AddProductComponent,
     EditProductsComponent,
+    DialogComponent,
+    DeleteDialogComponent,
+    SignUpComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -62,13 +71,16 @@ import { EditProductsComponent } from './Components/AdminComponents/edit-product
     MatCardModule,
     MatInputModule,
     FormsModule,
+    HttpClientModule,
     MatBadgeModule,
     MatRadioModule,
     MatSelectModule,
     MatButtonModule,
-    MatIconModule
-
-  ],
+    MatIconModule,
+    MatDialogModule,
+    MatMenuModule,
+    ReactiveFormsModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

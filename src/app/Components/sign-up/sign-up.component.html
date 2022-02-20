@@ -1,0 +1,266 @@
+<form
+  (ngSubmit)="onSubmit()"
+  [formGroup]="registerForm"
+  class="container col-8 mt-3"
+>
+  <div class="mb-3">
+    <label for="fullName" class="form-label">Full Name</label>
+    <input
+      type="text"
+      class="form-control"
+      id="fullName"
+      formControlName="name"
+      [class.is-valid]="name?.valid"
+      [class.is-invalid]="name?.invalid && name?.touched"
+    />
+
+    <div
+      *ngIf="name?.invalid && !name?.untouched"
+      class="alert alert-danger mt-2"
+    >
+      <div *ngIf="name?.errors?.['required']">Name is required.</div>
+      <div *ngIf="name?.errors?.['minlength']">
+        Name must be at least 4 characters long.
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="email" class="form-label">Email address</label>
+    <input
+      type="email"
+      class="form-control"
+      id="email"
+      formControlName="email"
+      [class.is-valid]="email?.valid"
+      [class.is-invalid]="email?.invalid && email?.touched"
+    />
+
+    <div
+      *ngIf="email?.invalid && !email?.untouched"
+      class="alert alert-danger mt-2"
+    >
+      <div *ngIf="email?.errors?.['required']">Email is required.</div>
+      <div *ngIf="email?.errors?.['pattern']">Email must be valid.</div>
+      <div *ngIf="email?.errors?.['emailExists']">Email already exists.</div>
+    </div>
+  </div>
+
+  <div formArrayName="mobile" class="mb-3 row">
+    <label for="number" class="form-label">Mobile Number</label>
+
+    <div
+      *ngFor="let number of mobileNumbers.controls; let i = index"
+      class="mb-3"
+    >
+      <div class="row">
+        <div class="col-11">
+          <input
+            type="text"
+            class="form-control"
+            id="number-{{ i }}"
+            [formControlName]="i"
+            [class.is-valid]="number.valid"
+            [class.is-invalid]="number.invalid &&number?.touched
+            "
+          />
+        </div>
+
+        <button
+          *ngIf="i === mobileNumbers.controls.length - 1"
+          type="button"
+          class="btn btn-dark col-1"
+          id="btn-{{ i }}"
+          (click)="onAdd()"
+        >
+          +
+        </button>
+
+        <button
+          *ngIf="i < mobileNumbers.controls.length - 1"
+          type="button"
+          class="btn btn-dark col-1"
+          id="btn-{{ i }}"
+          (click)="onMinus(i)"
+        >
+          -
+        </button>
+      </div>
+
+      <div
+        *ngIf="number.invalid &&  !number.untouched"
+        class="alert alert-danger mt-2 col-11"
+      >
+        <div *ngIf="number.errors?.['required']">
+          Mobile is required.
+        </div>
+        <div *ngIf="number.errors?.['pattern']">
+          Mobile is incorrect.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div formGroupName="address">
+    <div class="mb-3 row">
+      <div class="col-6">
+        <label for="city" class="form-label">City</label>
+        <input
+          type="text"
+          class="form-control"
+          id="city"
+          formControlName="city"
+          [class.is-valid]="city?.valid"
+          [class.is-invalid]="city?.invalid && city?.touched"
+        />
+
+        <div
+          *ngIf="city?.invalid && city?.touched"
+          class="alert alert-danger mt-2"
+        >
+          city is required.
+        </div>
+      </div>
+
+      <div class="col-6">
+        <label for="street" class="form-label">Street</label>
+        <input
+          type="text"
+          class="form-control"
+          id="street"
+          formControlName="street"
+          [class.is-valid]="street?.valid"
+          [class.is-invalid]="street?.invalid && street?.touched"
+        />
+        <div
+          *ngIf="street?.invalid && street?.touched"
+          class="alert alert-danger mt-2"
+        >
+          Street is required.
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="postal" class="form-label">Postal Code</label>
+      <input
+        type="text"
+        class="form-control"
+        id="postal"
+        formControlName="postalCode"
+        [class.is-valid]="postal?.valid"
+        [class.is-invalid]="postal?.invalid && postal?.touched"
+      />
+      <div
+        *ngIf="postal?.invalid && postal?.touched"
+        class="alert alert-danger mt-2"
+      >
+        Postal is required.
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="password" class="form-label">Password</label>
+    <input
+      type="password"
+      class="form-control"
+      id="password"
+      formControlName="password"
+      [class.is-valid]="password?.valid"
+      [class.is-invalid]="password?.invalid && password?.touched"
+    />
+
+    <div
+      *ngIf="password?.invalid && !password?.untouched"
+      class="alert alert-danger mt-2"
+    >
+      <div *ngIf="password?.errors?.['required']">Password is required.</div>
+      <div *ngIf="password?.errors?.['pattern']">
+        Password must Contain capital litter, number , special character.
+      </div>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="confirm-password" class="form-label">Confirm Password</label>
+    <input
+      type="password"
+      class="form-control"
+      id="confirm-password"
+      formControlName="confirmPass"
+    />
+    <div
+      *ngIf="confirmPass?.errors?.['required'] && confirmPass?.touched"
+      class="alert alert-danger mt-2"
+    >
+      confirm Password is required.
+    </div>
+    <div
+      *ngIf="registerForm?.errors?.['confirmError'] && confirmPass?.dirty"
+      class="alert alert-danger mt-2"
+    >
+      passwords are not matched.
+    </div>
+    <div
+      *ngIf="registerForm?.errors?.['containName'] && confirmPass?.dirty"
+      class="alert alert-danger mt-2"
+    >
+      password shouldn't contain Name
+    </div>
+  </div>
+
+  <label class="form-check-label mb-3"> Delivery Options </label>
+  <div class="form-check">
+    <input
+      class="form-check-input"
+      type="radio"
+      formControlName="delivery"
+      value="any"
+      name="delivery"
+      id="deliveryOptions1"
+      (change)="toggleDaliveryValidation()"
+    />
+    <label class="form-check-label" for="deliveryOptions1"> Any Day </label>
+  </div>
+
+  <div class="form-check mb-3">
+    <input
+      class="form-check-input"
+      formControlName="delivery"
+      type="radio"
+      name="delivery"
+      value="specific"
+      id="specific"
+      (change)="toggleDaliveryValidation()"
+    />
+    <label class="form-check-label" for="specific"> Specific Day </label>
+  </div>
+
+  <div class="mb-3" *ngIf="delivery?.value === 'specific'">
+    <label for="postal" class="form-label">Specific Day</label>
+    <input
+      type="text"
+      class="form-control"
+      id="specificDayDel"
+      formControlName="specificDayDel"
+      [class.is-valid]="specificDayDel?.valid"
+      [class.is-invalid]="specificDayDel?.invalid && specificDayDel?.touched"
+    />
+
+    <div
+      *ngIf="specificDayDel?.invalid && specificDayDel?.touched"
+      class="alert alert-danger mt-2"
+    >
+      Specific Day Delivery is required.
+    </div>
+  </div>
+
+  <!-- <p>{{registerForm?.value |json }}</p>
+  <p>{{registerForm?.errors |json }}</p> -->
+  <!-- <p>{{registerForm |json }}</p> -->
+
+  <button type="submit" class="btn btn-dark" [disabled]="!registerForm.valid">
+    Submit
+  </button>
+  
+</form>
