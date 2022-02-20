@@ -11,30 +11,39 @@ import { ProductsBackService } from 'src/app/Services/products-back.service';
   styleUrls: ['./edit-products.component.sass'],
 })
 export class EditProductsComponent implements OnInit {
-  product: IProduct ={}as IProduct;
-  productId:number=0;
+  product: IProduct = {} as IProduct;
+  productId: number = 0;
   constructor(
     private productsService: ProductsLocalService,
-    private productsBack:ProductsBackService,
+    private productsBack: ProductsBackService,
     private location: Location,
-    private activatedRoute: ActivatedRoute,
+    private activatedRoute: ActivatedRoute
   ) {
     activatedRoute.paramMap.subscribe((parmMap) => {
       this.productId = Number(parmMap.get('id'));
-      // this.product = productsService.getProductById(productId);
-      this.productId&& this.productsBack.getProductById(this.productId).subscribe(data=>{
-        this.product =data;
-      })
 
+      if (this.productId)
+        this.product = this.productsService.getProductById(this.productId)!;
+
+      // this.productId&& this.productsBack.getProductById(this.productId).subscribe(data=>{
+      //   this.product =data;
+      // })
     });
   }
 
-  onSubmit(){
+  onSubmit() {
     this.productId
-      ? this.productsBack.editProduct(this.product).subscribe(data=>console.log(data))
-      : this.productsBack.addProduct(this.product).subscribe(data=>console.log(data));
+      ? this.productsService.editProduct(this.product)
+      : this.productsService.addProduct(this.product);
     this.location.back();
   }
+
+  // onSubmit(){
+  //   this.productId
+  //     ? this.productsBack.editProduct(this.product).subscribe(data=>console.log(data))
+  //     : this.productsBack.addProduct(this.product).subscribe(data=>console.log(data));
+  //   this.location.back();
+  // }
 
   ngOnInit(): void {
     console.log(this.location);

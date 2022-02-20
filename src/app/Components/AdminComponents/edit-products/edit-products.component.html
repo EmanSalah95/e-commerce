@@ -8,7 +8,7 @@
         id="nameInput"
         name="name"
         required
-        pattern="[A-Za-z]{3,32}"
+        pattern="[A-Za-z\s?]{3,32}"
         aria-describedby="nameHelp"
         [(ngModel)]="product.name"
         #nameRef="ngModel"

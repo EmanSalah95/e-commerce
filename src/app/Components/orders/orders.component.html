@@ -3,22 +3,23 @@
     [src]="storeObj.logo"
     width="50px"
     height="50px"
-    class="mx-3 rounded-3"
+    class="mx-1 rounded-3"
     alt="logo"
   />
 
   <h1>{{ storeObj.name }}</h1>
 </div>
+
 <h3 *ngIf="discount !== 'No Discount'">
   We offer an explicit discount of: {{ discount }}
-  <!-- <p>The hero's birthday is {{ birthday | date }}</p> -->
 </h3>
-
 <hr />
 
 <mat-card>
   <mat-radio-group aria-label="Select an option">
-    <mat-radio-button (click)="setDisplay(1)" value="1">Cards</mat-radio-button>
+    <mat-radio-button checked (click)="setDisplay(1)" value="1"
+      >Cards</mat-radio-button
+    >
     <mat-radio-button (click)="setDisplay(2)" class="ms-5" value="2"
       >Table</mat-radio-button
     >
@@ -50,37 +51,31 @@
   </ul>
 </div>
 
-<div class="mb-3 col-3">
-  <input
-    type="search"
-    class="form-control"
-    type="number"
-    placeholder="filter by max price"
-    #maxInput
-  />
+<div class="d-flex mb-3">
+  
+  <div class="col-6 col-lg-3 col-md-4">
+    <input
+      type="search"
+      class="form-control"
+      type="number"
+      placeholder="filter by max price"
+      [(ngModel)]="maxPrice"
+    />
+  </div>
+
+  <button
+    [hidden]="!maxPrice"
+    type="button"
+    class="btn btn-dark mx-2"
+    (click)="resetMax()"
+  >
+    reset
+  </button>
 </div>
 
-<button
-  type="button"
-  class="btn btn-dark"
-  (click)="setMaxPrice(+maxInput.value)"
->
-  filter
-</button>
-
-
-<!-- <div class="mb-3 col-3">
-  <label for="" class="form-label"></label>
-  <select class="form-control" name="" id="" [(ngModel)]="categoryId">
-    <option  selected value="0">all</option>
-    <option *ngFor="let cat of categoryList" value="{{ cat.id }}">
-      {{ cat.name }}
-    </option>
-  </select>
-</div> -->
 <all-products
   [recievedCateg]="categoryId"
-  [productsStr]="productsView"
+  [productsLayout]="productsLayout"
   [recievedMaxPrice]="+maxPrice"
   [cartProducts]="addedProducts"
   (appendCart)="onAppend($event)"
@@ -125,7 +120,6 @@
           (blur)="editProductTotalPrice(editedQuantity.value, product.id)"
         />
       </td>
-      <!--[(ngModel)]='product.count'-->
       <td>{{ product.count * product.price | currency: "EGP":"code" }}</td>
 
       <td>
@@ -134,7 +128,6 @@
           class="btn btn-dark"
           (click)="removeFromCart(product.id)"
         >
-          <!-- (click)="addToCart(product,+addedQuantity.value)" -->
           remove
         </button>
       </td>
@@ -142,7 +135,6 @@
   </tbody>
 </table>
 
-<!--  *ngIf="!orderCompleted" -->
 
 <h4 *ngIf="orderCompleted && addedProducts.length == 0" class="my-5">
   Thanks for purchasing from our Store, {{ clientName }}
@@ -185,7 +177,6 @@
         class="form-control"
         value="29909011509345"
         placeholder="ID"
-        (submit)="test($event)"
       />
       <button
         type="button"

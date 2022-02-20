@@ -9,18 +9,25 @@ import { Location } from '@angular/common';
   styleUrls: ['./login.component.sass'],
 })
 export class LoginComponent implements OnInit {
-  constructor(private loginAuth: AuthServiceService ,
-     private router: Router ,private location:Location, private activRouter: ActivatedRoute,
-     ) {}
+  name: string = '';
+  password: string = '';
+  constructor(
+    private loginAuth: AuthServiceService,
+    private router: Router,
+    private location: Location,
+  ) {}
+  
   ngOnInit(): void {
-    console.log("log",this.activRouter); //get current url
+    this.loginAuth.checkToken() &&
+      this.location.back();
   }
 
   loginHandler(username: string, password: string) {
     this.loginAuth.login(username, password);
-    // this.loginAuth.checkToken() && this.location.back();
-    console.log("location",location);
 
-    this.loginAuth.checkToken() && this.router.navigate(['Order']);
+    let destination = localStorage.getItem('guardedUrl');
+    this.loginAuth.checkToken() &&
+      this.router.navigate([destination ? destination : 'Home']);
+    destination && localStorage.removeItem('guardedUrl');
   }
 }

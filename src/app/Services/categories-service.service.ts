@@ -6,8 +6,16 @@ import { ICategory } from './../ViewModels/icategory';
 @Injectable({
   providedIn: 'root',
 })
-export class CategoriesServiceService {
-  constructor(private httpC: HttpClient) {}
+export class CategoriesService {
+  categoryList: ICategory[];
+
+  constructor(private httpC: HttpClient) {
+    this.categoryList = [
+      { id: 1, name: 'mobiles' },
+      { id: 2, name: 'ipads' },
+      { id: 3, name: 'tvs' },
+    ];
+  }
 
   getCategories(): Observable<ICategory[]> {
     return this.httpC.get<ICategory[]>(`${environment.API}/categories`);
@@ -15,5 +23,9 @@ export class CategoriesServiceService {
 
   getCategoryById(id: number): Observable<ICategory> {
     return this.httpC.get<ICategory>(`${environment.API}/categories?id=${id}`);
+  }
+
+  getLocatCategories():ICategory[]{
+    return this.categoryList;
   }
 }

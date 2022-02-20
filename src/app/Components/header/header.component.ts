@@ -33,7 +33,7 @@ export class HeaderComponent implements OnInit {
       .subscribe((logOut) =>{
         if(logOut === 'true'){
           this.auth.logout();
-          this.router.url=='/Order'&& this.router.navigate(['Products']);
+          this.router.navigate(['Home']);
         }
       });
   }

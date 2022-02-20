@@ -11,17 +11,10 @@
         <a class="nav-link" routerLink="Home" routerLinkActive="active">Home</a>
         <a class="nav-link" routerLink="Products" routerLinkActive="active">Products</a>
         <a class="nav-link" routerLink="Order" routerLinkActive="active">Order</a>
-        <a class="nav-link" routerLink="About" routerLinkActive="active">About</a>
         <a class="nav-link" [hidden]='isLogged' routerLink="Login" routerLinkActive="active" >Login</a>
-        <!-- <button mat-icon-button [matMenuTriggerFor]="menu" class="text-light" style.color="#989790">
-        <mat-icon>more_vert</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item>
-            <mat-icon>logout</mat-icon>
-            <span>logout</span>
-          </button>
-        </mat-menu> -->
+        <a class="nav-link" [hidden]='isLogged' routerLink="Register" routerLinkActive="active" >Register</a>
+        <a class="nav-link" [hidden]='!isLogged' routerLink="User/Profile" routerLinkActive="active" >Profile</a>
+        <a class="nav-link" [hidden]='!isLogged' routerLink="User/UpdateProfile" routerLinkActive="active" >Update Profile</a>
         <a class="nav-link" [hidden]='!isLogged' (click)="handleLogOut()">hello: {{userName}} </a>
       </div>
     </div>

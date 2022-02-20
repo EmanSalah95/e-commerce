@@ -3,11 +3,8 @@ import {
   Input,
   OnInit,
   OnChanges,
-  SimpleChanges,
   Output,
   EventEmitter,
-  ViewChild,
-  ElementRef,
 } from '@angular/core';
 import { IProduct } from './../../ViewModels/iproduct';
 import { IcartProduct } from '../../ViewModels/icartProduct';
@@ -21,7 +18,7 @@ import { ProductsLocalService } from './../../Services/products-local.service';
 export class AllProductsComponent implements OnInit, OnChanges {
   productsList: IProduct[];
   filteredProducts: IProduct[] = [];
-  @Input() productsStr: number = 1;
+  @Input() productsLayout: number = 1;
   @Input() recievedCateg: number = 0;
   @Input() recievedMaxPrice: number = 0;
   @Input() cartProducts:IcartProduct[]=[];
@@ -40,21 +37,6 @@ export class AllProductsComponent implements OnInit, OnChanges {
       );
   }
 
-  private filterByCategory() {
-    this.filteredProducts =
-      +this.recievedCateg === 0
-        ? this.productsList
-        : this.productsList.filter(
-            (prod) => prod.categoryId === +this.recievedCateg
-          );
-    this.recievedMaxPrice && this.filterByMaxPrice();
-  }
-
-  private filterByMaxPrice() {
-    this.filteredProducts = this.filteredProducts.filter(
-      (prod) => prod.price <= this.recievedMaxPrice
-    );
-  }
 
   decreaseCount(id: number) {
     this.productsList.forEach((element) => {
@@ -75,9 +57,11 @@ export class AllProductsComponent implements OnInit, OnChanges {
     return isAvailable;
   }
 
-  addToCart(product: IProduct, addedQuantity: number) {
+  addToCart(product: IProduct, addedQuantity: number,event?:any) {
     let { id, quantity, price, name, image } = product;
     let isQuantityAvailable = this.checkQuantity(addedQuantity, quantity);
+    event && event.stopPropagation();
+
     if (isQuantityAvailable) {
       let addedProduct: IcartProduct = {
         id,

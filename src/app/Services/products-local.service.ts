@@ -21,7 +21,7 @@ export class ProductsLocalService {
         id: 6,
         name: 'samsung galaxy',
         price: 5000,
-        quantity: 0,
+        quantity: 15,
         categoryId: 1,
         image:
           'https://m.media-amazon.com/images/I/81A3nwwKt2S._AC_UL480_QL65_.jpg',
@@ -48,7 +48,7 @@ export class ProductsLocalService {
         id: 8,
         name: 'ipad pro',
         price: 20000,
-        quantity: 0,
+        quantity: 12,
         categoryId: 2,
         image:
           'https://m.media-amazon.com/images/I/81sxRBhe2sS._AC_UL480_FMwebp_QL65_.jpg',
@@ -103,8 +103,9 @@ export class ProductsLocalService {
      return filteredCateg;
   }
 
-  getProductById(id:number){
-    return this.productsList.find( prod=>prod.id==id)
+  getProductById(id:number):IProduct|undefined{
+    let pr:IProduct|undefined=this.productsList.find( prod=>prod.id==id);    
+    return pr;
   }
 
   getAllProductsIds(){
@@ -113,8 +114,6 @@ export class ProductsLocalService {
 
   addProduct(prod:IProduct){
     this.productsList.push(prod);
-    console.log(prod);
-    console.log(this.productsList);
   }
 
   editProduct(editedProduct:IProduct){
@@ -128,5 +127,18 @@ export class ProductsLocalService {
       }
     })
 
+  }
+
+  deleteProduct(id:number){
+    this.productsList= this.productsList.filter( prod =>prod.id!=id);
+    
+  }
+
+  decreaseProdQuantity(id: number) {
+    this.productsList.forEach((element) => {
+      if (element.id == id) {
+        --element.quantity;
+      }
+    });
   }
 }

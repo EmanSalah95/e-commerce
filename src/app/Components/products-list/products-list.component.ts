@@ -25,8 +25,8 @@ export class ProductsListComponent implements OnInit, OnDestroy {
     private pormotions: PormotionsServiceService,
     private dialog: MatDialog
   ) {
-    // this.productsList = localProductsService.getProducts();
-    this.productsBack.getProducts().subscribe(data=>{this.productsList =data})
+    this.productsList = localProductsService.getProducts();
+    // this.productsBack.getProducts().subscribe(data=>{this.productsList =data})
   }
 
   removeProduct(id:number,event:any){
@@ -36,8 +36,9 @@ export class ProductsListComponent implements OnInit, OnDestroy {
       .afterClosed()
       .subscribe((isConfirmed) => {
       if (isConfirmed === 'true') {
-       this.productsBack.deleteProduct(id).subscribe(data=>console.log(data));
+      //  this.productsBack.deleteProduct(id).subscribe(data=>console.log(data));
        this.productsList= this.productsList.filter(i=>i.id!==id);
+       this.localProductsService.deleteProduct(id);
       }}
       );
   }

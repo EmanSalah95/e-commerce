@@ -34,7 +34,6 @@ export class ProductDetailsComponent implements OnInit {
 
   getNextProduct(){
     let prodIndex=this.allProductsIds.findIndex( id=>id===this.productId);
-    console.log("len",this.allProductsIds.length ,prodIndex);
 
     if(prodIndex<this.allProductsIds.length-1){
       let destinationId=this.allProductsIds[prodIndex+1];
