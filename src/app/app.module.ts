@@ -37,6 +37,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import { HttpClientModule } from '@angular/common/http';
 import { DeleteDialogComponent } from './Components/MaterialComponents/delete-dialog/delete-dialog.component';
 import { SignUpComponent } from './Components/sign-up/sign-up.component';
+import { PhoneNumberValidatorDirective } from './Directivs/phone-number-validator.directive';
 
 
 
@@ -61,6 +62,7 @@ import { SignUpComponent } from './Components/sign-up/sign-up.component';
     DialogComponent,
     DeleteDialogComponent,
     SignUpComponent,
+    PhoneNumberValidatorDirective,
 
   ],
   imports: [
