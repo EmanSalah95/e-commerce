@@ -9,7 +9,6 @@ export class PhoneNumberValidatorDirective {
 
   @HostListener('keyup') onKeyUp() {
     let val = this.elementRef.nativeElement.value;
-    console.log('current val', val);
     if (val.length == 1) {
       if (val != 0) this.elementRef.nativeElement.value = '';
     } else if (val.length == 2) {
